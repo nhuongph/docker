@@ -5,6 +5,8 @@ Docker is an open platform for developing, shipping, and running applications. D
 ___
 
 ## Quick Overview
+docker-v: Docker version 18.03.1-ce, build 9ee9f40
+docker-compose -v: docker-compose version 1.19.0, build 9e633ef
 
 1. Clone Laradock inside your PHP project:
 
