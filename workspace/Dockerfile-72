@@ -79,8 +79,8 @@ ARG PGID=1000
 ENV PUID ${PUID}
 ENV PGID ${PGID}
 
-RUN groupadd -g ${PGID} neolab && \
-    useradd -u ${PUID} -g neolab -m neolab
+RUN groupadd -g ${PGID} nhuongph && \
+    useradd -u ${PUID} -g nhuongph -m nhuongph
 
 #####################################
 # Set Timezone
@@ -95,11 +95,11 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 #####################################
 
 # Add the composer.json
-COPY ./composer.json /home/neolab/.composer/composer.json
+COPY ./composer.json /home/nhuongph/.composer/composer.json
 
-# Make sure that ~/.composer belongs to neolab
-RUN chown -R neolab:neolab /home/neolab/.composer
-USER neolab
+# Make sure that ~/.composer belongs to nhuongph
+RUN chown -R nhuongph:nhuongph /home/nhuongph/.composer
+USER nhuongph
 
 # Check if global install need to be ran
 ARG COMPOSER_GLOBAL_INSTALL=false
@@ -128,22 +128,22 @@ RUN chmod -R 644 /etc/cron.d
 # User Aliases
 #####################################
 
-USER neolab
-COPY ./aliases.sh /home/neolab/aliases.sh
+USER nhuongph
+COPY ./aliases.sh /home/nhuongph/aliases.sh
 RUN echo "" >> ~/.bashrc && \
     echo "# Load Custom Aliases" >> ~/.bashrc && \
-    echo "source /home/neolab/aliases.sh" >> ~/.bashrc && \
+    echo "source /home/nhuongph/aliases.sh" >> ~/.bashrc && \
 	echo "" >> ~/.bashrc && \
-	sed -i 's/\r//' /home/neolab/aliases.sh && \
-	sed -i 's/^#! \/bin\/sh/#! \/bin\/bash/' /home/neolab/aliases.sh
+	sed -i 's/\r//' /home/nhuongph/aliases.sh && \
+	sed -i 's/^#! \/bin\/sh/#! \/bin\/bash/' /home/nhuongph/aliases.sh
 
 USER root
 RUN echo "" >> ~/.bashrc && \
     echo "# Load Custom Aliases" >> ~/.bashrc && \
-    echo "source /home/neolab/aliases.sh" >> ~/.bashrc && \
+    echo "source /home/nhuongph/aliases.sh" >> ~/.bashrc && \
 	echo "" >> ~/.bashrc && \
-	sed -i 's/\r//' /home/neolab/aliases.sh && \
-	sed -i 's/^#! \/bin\/sh/#! \/bin\/bash/' /home/neolab/aliases.sh
+	sed -i 's/\r//' /home/nhuongph/aliases.sh && \
+	sed -i 's/^#! \/bin\/sh/#! \/bin\/bash/' /home/nhuongph/aliases.sh
 
 #####################################
 # PHP REDIS EXTENSION FOR PHP 7.2
@@ -158,7 +158,7 @@ RUN if [ ${INSTALL_PHPREDIS} = true ]; then \
     phpenmod redis \
 ;fi
 
-USER neolab
+USER nhuongph
 
 #####################################
 # Node / NVM:
@@ -169,7 +169,7 @@ ARG NODE_VERSION=stable
 ENV NODE_VERSION ${NODE_VERSION}
 ARG INSTALL_NODE=false
 ENV INSTALL_NODE ${INSTALL_NODE}
-ENV NVM_DIR /home/neolab/.nvm
+ENV NVM_DIR /home/nhuongph/.nvm
 ARG NPM_REGISTRY
 ENV NPM_REGISTRY ${NPM_REGISTRY}
 RUN if [ ${INSTALL_NODE} = true ]; then \
@@ -198,7 +198,7 @@ USER root
 
 RUN if [ ${INSTALL_NODE} = true ]; then \
     echo "" >> ~/.bashrc && \
-    echo 'export NVM_DIR="/home/neolab/.nvm"' >> ~/.bashrc && \
+    echo 'export NVM_DIR="/home/nhuongph/.nvm"' >> ~/.bashrc && \
     echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm' >> ~/.bashrc \
 ;fi
 
@@ -213,7 +213,7 @@ RUN if [ ${NPM_REGISTRY} ]; then \
 # YARN:
 #####################################
 
-USER neolab
+USER nhuongph
 
 ARG INSTALL_YARN=false
 ENV INSTALL_YARN ${INSTALL_YARN}
@@ -236,7 +236,7 @@ USER root
 
 RUN if [ ${INSTALL_YARN} = true ]; then \
     echo "" >> ~/.bashrc && \
-    echo 'export YARN_DIR="/home/neolab/.yarn"' >> ~/.bashrc && \
+    echo 'export YARN_DIR="/home/nhuongph/.yarn"' >> ~/.bashrc && \
     echo 'export PATH="$YARN_DIR/bin:$PATH"' >> ~/.bashrc \
 ;fi
 
