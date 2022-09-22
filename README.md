@@ -11,7 +11,7 @@ docker-compose -v: docker-compose version 1.19.0, build 9e633ef
 1. Clone Laradock inside your PHP project:
 
     ```
-        git clone git@bitbucket.org:nldanang/laradock.git
+        git clone https://github.com/nhuongph/docker.git
     ```
 
 2. Enter the laradock folder and rename env-example to .env.
@@ -33,7 +33,7 @@ docker-compose -v: docker-compose version 1.19.0, build 9e633ef
         DB_CONNECTION=pgsql
         DB_HOST=postgres
         DB_PORT=5432
-        DB_USERNAME=enigma
+        DB_USERNAME=nhuongph
         DB_PASSWORD=secret
         #Redis
         REDIS_HOST=redis
@@ -116,7 +116,7 @@ docker-compose -v: docker-compose version 1.19.0, build 9e633ef
         DB_CONNECTION=pgsql
         DB_HOST=postgres
         DB_PORT=5432
-        DB_USERNAME=enigma
+        DB_USERNAME=nhuongph
         DB_PASSWORD=secret
         
         REDIS_HOST=redis

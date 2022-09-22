@@ -53,19 +53,23 @@ services:
           - workspace
         networks:
           - backend
-
-    ### Postgres
-    postgres:
-      container_name: ${PROJECT_NAME}_postgres
-      build: ./postgres
+  ### MySQL Container #########################################
+    mysql:
+      container_name: ${PROJECT_NAME}_mysql
+      build:
+        context: ./mysql
+        args:
+          - MYSQL_VERSION=${MYSQL_VERSION}
       volumes:
-        - ${DATA_SAVE_PATH}/postgres:/var/lib/postgresql/data
+        - ${DATA_SAVE_PATH}/mysql:/var/lib/mysql
       ports:
-        - "${POSTGRES_PORT}:5432"
+        - "3306:3306"
       environment:
-        - POSTGRES_DB=${POSTGRES_DB}
-        - POSTGRES_USER=${POSTGRES_USER}
-        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+        MYSQL_VERSION: ${MYSQL_VERSION}
+        MYSQL_DATABASE: homestead
+        MYSQL_USER: homestead
+        MYSQL_PASSWORD: secret
+        MYSQL_ROOT_PASSWORD: root
       networks:
         - backend
 
@@ -77,17 +81,6 @@ services:
         - ${DATA_SAVE_PATH}/redis:/data
       ports:
         - "${REDIS_PORT}:6379"
-      networks:
-        - backend
-
-    ### dynamodb
-    dynamodb:
-      container_name: ${PROJECT_NAME}_dynamodb
-      build: ./dynamodb
-      volumes:
-        - ${DATA_SAVE_PATH}/dynamodb:/dynamodb_local_db
-      ports:
-        - "${DYNAMODB_PORT}:8000"
       networks:
         - backend
 
@@ -126,8 +119,6 @@ services:
         dockerfile: "Dockerfile-${PHP_VERSION}"
       volumes_from:
         - applications
-      depends_on:
-        - dynamodb
       extra_hosts:
         - "dockerhost:${DOCKER_HOST_IP}"
       ports:
@@ -147,6 +138,4 @@ networks:
 ### Volumes Setup #############################################
 volumes:
   mysql:
-    driver: "local"
-  postgres:
     driver: "local"
