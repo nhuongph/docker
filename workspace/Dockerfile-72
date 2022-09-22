@@ -1,4 +1,4 @@
-FROM phusion/baseimage:latest
+FROM phusion/baseimage:bionic-1.0.0
 
 RUN DEBIAN_FRONTEND=noninteractive
 RUN locale-gen en_US.UTF-8
@@ -53,6 +53,8 @@ RUN apt-get update && \
         nano \
         postgresql-client \
     && apt-get clean
+# set default php7.2
+RUN update-alternatives --set php /usr/bin/php7.2
 
 #####################################
 # Composer:

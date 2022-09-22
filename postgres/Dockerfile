@@ -1,4 +1,4 @@
-FROM postgres:9.6-alpine
+FROM postgres:12.4-alpine
 
 CMD ["postgres"]
 
