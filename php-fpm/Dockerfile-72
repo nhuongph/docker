@@ -21,9 +21,7 @@ RUN apt-get update \
     && locale-gen
 
 # Install the PHP pdo_mysql extention
-RUN docker-php-ext-install pdo_mysql \
-# Install the PHP pdo_pgsql extention
-&& docker-php-ext-install pdo_pgsql \
+RUN docker-php-ext-install mysqli pdo pdo_mysql \
 # Install the PHP gd library
 && docker-php-ext-configure gd \
 # --enable-gd-native-ttf \ # not use for php 7.2

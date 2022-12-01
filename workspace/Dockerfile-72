@@ -31,6 +31,7 @@ RUN apt-get update && \
         php7.2-xml \
         php7.2-mbstring \
         php7.2-mysql \
+        php7.2-mysqli \
         php7.2-pgsql \
         php7.2-sqlite \
         php7.2-sqlite3 \
